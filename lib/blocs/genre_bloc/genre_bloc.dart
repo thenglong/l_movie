@@ -12,7 +12,7 @@ class GenreBloc extends Bloc<GenreEvent, GenreState> {
   Connectivity connectivity = Connectivity();
 
   GenreBloc(this.genreRepository) : super(GenreInitial()) {
-    on<GenreEvent>((event, emit) async {
+    on<FetchGenresEvent>((event, emit) async {
       final connectResult = await connectivity.checkConnectivity();
       if (connectResult == ConnectivityResult.none) {
         emit(const GenresFetchError('Please check the network connection'));

@@ -1,39 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:l_movie/blocs/genre_bloc/genre_bloc.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_bloc.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_event.dart';
-import 'package:l_movie/blocs/movie_bloc/movie_state.dart';
 import 'package:l_movie/constants/movie_constants.dart';
-import 'package:l_movie/models/movie.dart';
-import 'package:l_movie/repository/movie_repository_impl.dart';
+import 'package:l_movie/models/genre.dart';
+import 'package:l_movie/repository/genre_repository_impl.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/error_page.dart';
 import 'package:l_movie/widgets/network_image_wrapper.dart';
 
-class CategoryView extends StatelessWidget {
-  final Function(Movie) actionOpenCategory;
+class GenreView extends StatelessWidget {
+  final Function(Genre) actionOpenGenre;
 
-  const CategoryView({Key? key, required this.actionOpenCategory})
-      : super(key: key);
+  const GenreView({Key? key, required this.actionOpenGenre}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) {
-        return MovieBloc(MovieRepositoryImpl())
-          ..add(FetchMovieWithType(MovieType.upcoming));
+        return GenreBloc(GenreRepositoryImpl())..add(const FetchGenresEvent());
       },
-      child: _createCategory(context),
+      child: _createGenre(context),
     );
   }
 
-  Widget _createCategory(BuildContext context) {
-    return BlocBuilder<MovieBloc, MovieState>(
+  Widget _createGenre(BuildContext context) {
+    return BlocBuilder<GenreBloc, GenreState>(
       builder: (context, state) {
-        if (state is MovieInit) {
+        if (state is GenreInitial) {
           return const Center(child: CircularProgressIndicator());
-        } else if (state is MovieFetchError) {
+        } else if (state is GenresFetchError) {
           return ErrorPage(
             message: state.message,
             retry: () {
@@ -42,8 +40,8 @@ class CategoryView extends StatelessWidget {
                   .add(FetchMovieWithType(MovieType.upcoming));
             },
           );
-        } else if (state is MovieFetched) {
-          return _createCategoryList(context, state.movies);
+        } else if (state is GenresFetched) {
+          return _createGenreList(context, state.genres);
         } else {
           return Text(AppLocalizations.of(context)!.cannotSupport);
         }
@@ -51,15 +49,15 @@ class CategoryView extends StatelessWidget {
     );
   }
 
-  Widget _createCategoryList(BuildContext context, List<Movie> movies) {
+  Widget _createGenreList(BuildContext context, List<Genre> genre) {
     return SizedBox(
       width: double.infinity,
       height: 96.0,
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return _createCategoryItem(context, movies[index]);
+          return _createGenreItem(context, genre[index]);
         },
-        itemCount: movies.length,
+        itemCount: genre.length,
         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
         scrollDirection: Axis.horizontal,
         separatorBuilder: (context, index) => const VerticalDivider(
@@ -70,12 +68,12 @@ class CategoryView extends StatelessWidget {
     );
   }
 
-  Widget _createCategoryItem(BuildContext context, Movie movie) {
+  Widget _createGenreItem(BuildContext context, Genre genre) {
     final width = MediaQuery.of(context).size.width / 2.5;
 
     return InkWell(
       onTap: () {
-        actionOpenCategory(movie);
+        actionOpenGenre(genre);
       },
       child: Container(
         width: width,
@@ -96,7 +94,7 @@ class CategoryView extends StatelessWidget {
                 children: [
                   NetworkImageWrapper(
                     imageUrl:
-                        'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                        'https://source.unsplash.com/random/300%C3%97150/?${genre.name}',
                     width: width,
                     height: double.infinity,
                     fit: BoxFit.cover,
@@ -119,7 +117,7 @@ class CategoryView extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      movie.releaseDate,
+                      genre.name,
                       maxLines: 1,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
