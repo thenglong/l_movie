@@ -114,7 +114,7 @@ class MovieInfo extends Equatable {
       voteAverage: result['vote_average'] ?? 0.0,
       voteCount: result['vote_count'],
       genres: (result['genres'] as List)
-          .map((e) => Genre.parserFromJson(e))
+          .map((e) => Genre.parseFromJson(e))
           .toList(),
       countries: (result['production_countries'] as List)
           .map((e) => Country.parserFromJson(e))
