@@ -1,6 +1,9 @@
-class MovieConstants {
-  static String popular = "popular";
-  static String nowPlaying = "now_playing";
-  static String topRated = "top_rated";
-  static String upcoming = "upcoming";
+enum MovieType {
+  popular("popular"),
+  nowPlaying("now_playing"),
+  topRated("top_rated"),
+  upcoming("upcoming");
+
+  const MovieType(this.value);
+  final String value;
 }

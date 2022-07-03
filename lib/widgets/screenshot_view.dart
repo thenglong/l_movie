@@ -49,7 +49,7 @@ class ScreenshotView extends StatelessWidget {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieConstants.topRated));
+                  .add(FetchMovieWithType(MovieType.topRated));
             },
           );
         } else if (state is GetMovieImagesSuccess) {

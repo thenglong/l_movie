@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:l_movie/blocs/response/movie_response.dart';
+import 'package:l_movie/constants/movie_constants.dart';
 import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/models/movie_image.dart';
 import 'package:l_movie/models/movie_info.dart';
@@ -15,9 +16,9 @@ class MovieRepositoryImpl extends MovieRepository {
   MovieRepositoryImpl({Client? client}) : _client = client ?? Client();
 
   @override
-  Future<List<Movie>> fetchMovies(String type) async {
-    final response = await _client.get(
-        Uri.parse('https://api.themoviedb.org/3/movie/$type?api_key=$_apiKey'));
+  Future<List<Movie>> fetchMovies(MovieType type) async {
+    final response = await _client.get(Uri.parse(
+        'https://api.themoviedb.org/3/movie/${type.value}?api_key=$_apiKey'));
     if (response.statusCode == 200) {
       return MovieResponse.parserFromJson(json.decode(response.body)).movies;
     } else {
