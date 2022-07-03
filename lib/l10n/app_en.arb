@@ -1,13 +1,9 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
-  "appName": "Netflix",
+  "appName": "LMovie",
   "@appName": {
-    "description": "Netflix"
+    "description": "LMovie"
   },
-  "popular": "Popular on Netflix",
+  "popular": "Popular on LMovie",
   "@popular": {
     "description": "Popular title"
   },

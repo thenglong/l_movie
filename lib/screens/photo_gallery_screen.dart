@@ -1,5 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:l_movie/widgets/network_image_wrapper.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -80,12 +80,8 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     return PhotoViewGalleryPageOptions.customChild(
-      child: CachedNetworkImage(
-        placeholder: (context, url) => const Center(
-          child: CircularProgressIndicator(),
-        ),
-        imageUrl:
-        'https://image.tmdb.org/t/p/w500${widget.images[index]}',
+      child: NetworkImageWrapper(
+        imageUrl: 'https://image.tmdb.org/t/p/w500${widget.images[index]}',
         width: double.infinity,
         height: double.infinity,
         fit: BoxFit.contain,

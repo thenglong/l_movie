@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/repository/movie_repository_impl.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/error_page.dart';
+import 'package:l_movie/widgets/network_image_wrapper.dart';
 
 class SliderView extends StatefulWidget {
   final Function(Movie) actionOpenMovie;
@@ -101,10 +101,7 @@ class _SliderViewState extends State<SliderView> {
                 children: [
                   Hero(
                     tag: movie,
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                    child: NetworkImageWrapper(
                       imageUrl:
                           'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
                       width: width,
