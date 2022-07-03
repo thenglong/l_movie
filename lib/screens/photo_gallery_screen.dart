@@ -1,88 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-// import 'package:photo_view_example/screens/common/app_bar.dart';
-// import 'package:photo_view_example/screens/examples/gallery/gallery_example_item.dart';
-
-// class GalleryExample extends StatefulWidget {
-//   const GalleryExample({Key? key}) : super(key: key);
-//
-//   @override
-//   _GalleryExampleState createState() => _GalleryExampleState();
-// }
-
-// class _GalleryExampleState extends State<GalleryExample> {
-//   bool verticalGallery = false;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return ExampleAppBarLayout(
-//       title: "Gallery Example",
-//       showGoBack: true,
-//       child: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 GalleryExampleItemThumbnail(
-//                   galleryExampleItem: galleryItems[0],
-//                   onTap: () {
-//                     open(context, 0);
-//                   },
-//                 ),
-//                 GalleryExampleItemThumbnail(
-//                   galleryExampleItem: galleryItems[2],
-//                   onTap: () {
-//                     open(context, 2);
-//                   },
-//                 ),
-//                 GalleryExampleItemThumbnail(
-//                   galleryExampleItem: galleryItems[3],
-//                   onTap: () {
-//                     open(context, 3);
-//                   },
-//                 ),
-//               ],
-//             ),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: <Widget>[
-//                 const Text("Vertical"),
-//                 Checkbox(
-//                   value: verticalGallery,
-//                   onChanged: (value) {
-//                     setState(() {
-//                       verticalGallery = value!;
-//                     });
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-//
-//   void open(BuildContext context, final int index) {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (context) => GalleryPhotoViewWrapper(
-//           galleryItems: galleryItems,
-//           backgroundDecoration: const BoxDecoration(
-//             color: Colors.black,
-//           ),
-//           initialIndex: index,
-//           scrollDirection: verticalGallery ? Axis.vertical : Axis.horizontal,
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class GalleryPhotoViewWrapper extends StatefulWidget {
   GalleryPhotoViewWrapper({
@@ -145,7 +64,7 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
             Container(
               padding: const EdgeInsets.all(20.0),
               child: Text(
-                "Image ${currentIndex + 1}",
+                "${currentIndex + 1}/${widget.images.length}",
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 17.0,
@@ -160,10 +79,19 @@ class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
   }
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
-    return PhotoViewGalleryPageOptions(
-      imageProvider: AssetImage(widget.images[index]),
+    return PhotoViewGalleryPageOptions.customChild(
+      child: CachedNetworkImage(
+        placeholder: (context, url) => const Center(
+          child: CircularProgressIndicator(),
+        ),
+        imageUrl:
+        'https://image.tmdb.org/t/p/w500${widget.images[index]}',
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.contain,
+      ),
       initialScale: PhotoViewComputedScale.contained,
-      minScale: PhotoViewComputedScale.contained * (0.5 + index / 10),
+      minScale: PhotoViewComputedScale.contained,
       maxScale: PhotoViewComputedScale.covered * 4.1,
       heroAttributes: PhotoViewHeroAttributes(tag: widget.images[index]),
     );

@@ -112,7 +112,7 @@ class CustomListView extends StatelessWidget {
     final width = MediaQuery.of(context).size.width / 2.6;
     return InkWell(
       onTap: () {
-        // actionOpenMovie(movie);
+        actionOpenMovie(movie);
       },
       child: Container(
         width: width,
@@ -130,8 +130,8 @@ class CustomListView extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: GestureDetector(
-                onTap: () => openGallery(context,
-                    allMovies.map((e) => e.posterPath).toList(), index),
+                // onTap: () => openGallery(context,
+                //     allMovies.map((e) => e.posterPath).toList(), index),
                 child: CachedNetworkImage(
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
