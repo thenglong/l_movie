@@ -9,4 +9,6 @@ abstract class MovieRepository {
   Future<MovieInfo> getMovieInfo(int movieId);
 
   Future<MovieImage> getMovieImages(int movieId);
+
+  Future<List<Movie>> fetchMovieByGenres(List<int> genresId);
 }

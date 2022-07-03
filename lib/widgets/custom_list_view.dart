@@ -26,7 +26,7 @@ class CustomListView extends StatelessWidget {
       create: (context) {
         return MovieBloc(MovieRepositoryImpl())
           ..add(
-            FetchMovieWithType(MovieType.topRated),
+            const FetchMovieWithType(MovieType.topRated),
           );
       },
       child: _createMyList(context),
@@ -44,7 +44,7 @@ class CustomListView extends StatelessWidget {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieType.topRated));
+                  .add(const FetchMovieWithType(MovieType.topRated));
             },
           );
         } else if (state is MovieFetched) {

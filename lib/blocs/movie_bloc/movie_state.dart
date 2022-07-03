@@ -11,11 +11,10 @@ class MovieInit extends MovieState {}
 
 class MovieFetched extends MovieState {
   final List<Movie> movies;
-  final MovieType type;
-  MovieFetched(this.movies, this.type);
+  MovieFetched(this.movies);
 
   @override
-  List<Object> get props => [movies, type];
+  List<Object> get props => [movies];
 }
 
 class MovieFetchError extends MovieState {
