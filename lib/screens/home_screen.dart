@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:l_movie/blocs/movie_bloc/movie_event.dart';
 import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/screens/movie_detail_screen.dart';
+import 'package:l_movie/screens/movie_list_screen.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/custom_list_view.dart';
 import 'package:l_movie/widgets/genre_view.dart';
@@ -76,6 +78,8 @@ class HomeState extends State<HomeScreen>
                   actionOpenGenre: (genre) {
                     print(genre.name);
                     print(genre.id);
+                    _openMovieList(FetchMovieByGenres([genre.id]));
+                    // TODO
                   },
                 ),
                 const SizedBox(
@@ -104,6 +108,12 @@ class HomeState extends State<HomeScreen>
         return MovieDetailScreen(movie: movie);
       }),
     );
+  }
+
+  void _openMovieList(MovieEvent movieEvent) async {
+    await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => MovieListScreen(movieEvent: movieEvent),
+    ));
   }
 
   @override

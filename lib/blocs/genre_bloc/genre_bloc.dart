@@ -8,10 +8,10 @@ part 'genre_event.dart';
 part 'genre_state.dart';
 
 class GenreBloc extends Bloc<GenreEvent, GenreState> {
-  final GenreRepository genreRepository;
+  final GenreRepository _genreRepository;
   Connectivity connectivity = Connectivity();
 
-  GenreBloc(this.genreRepository) : super(GenreInitial()) {
+  GenreBloc(this._genreRepository) : super(GenreInitial()) {
     on<FetchGenresEvent>((event, emit) async {
       final connectResult = await connectivity.checkConnectivity();
       if (connectResult == ConnectivityResult.none) {
@@ -20,7 +20,7 @@ class GenreBloc extends Bloc<GenreEvent, GenreState> {
       }
 
       try {
-        final genres = await genreRepository.fetchGenres();
+        final genres = await _genreRepository.fetchGenres();
         emit(GenresFetched(genres));
       } on Exception catch (e) {
         emit(GenresFetchError(e.toString()));

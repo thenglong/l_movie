@@ -47,4 +47,15 @@ class MovieRepositoryImpl extends MovieRepository {
       throw Exception('Fail to load movie info');
     }
   }
+
+  @override
+  Future<List<Movie>> fetchMovieByGenres(List<int> genresId) async {
+    final response = await _client.get(Uri.parse(
+        'https://api.themoviedb.org/3/discover/movie?api_key=$_apiKey&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=1&with_genres=${genresId.join(",")}'));
+    if (response.statusCode == 200) {
+      return MovieResponse.parserFromJson(json.decode(response.body)).movies;
+    } else {
+      throw Exception('Fail to load movie by this genre');
+    }
+  }
 }

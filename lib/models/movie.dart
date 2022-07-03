@@ -11,7 +11,7 @@ class Movie extends Equatable {
   final String originalLanguage;
   final String originalTitle;
   final List<int> genreIds;
-  final String backdropPath;
+  final String? backdropPath;
   final bool adult;
   final String overview;
   final String releaseDate;
@@ -53,7 +53,7 @@ class Movie extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         voteCount,
         video,
