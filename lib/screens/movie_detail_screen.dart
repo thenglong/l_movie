@@ -95,7 +95,7 @@ class MovieDetailScreen extends StatelessWidget {
         //   height: 56.0,
         //   fit: BoxFit.fitHeight,
         // ),
-        title: const Logo(),
+        title: const LMovieLogo(),
         centerTitle: true,
         leading: Container(
           padding: const EdgeInsets.only(left: 16.0),
@@ -120,14 +120,17 @@ class MovieDetailScreen extends StatelessWidget {
   Widget _createHeaderImage(BuildContext context) {
     return Stack(
       children: [
-        CachedNetworkImage(
-          placeholder: (context, url) => const Center(
-            child: CircularProgressIndicator(),
+        Hero(
+          tag: movie,
+          child: CachedNetworkImage(
+            placeholder: (context, url) => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            imageUrl: 'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
           ),
-          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.cover,
         ),
         Container(
           width: double.infinity,

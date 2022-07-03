@@ -28,7 +28,7 @@ class HomeState extends State<HomeScreen>
         //   height: 56.0,
         //   fit: BoxFit.fitHeight,
         // ),
-        title: const Logo(),
+        title: const LMovieLogo(),
         centerTitle: true,
         leading: Container(
           padding: const EdgeInsets.only(left: 16.0),

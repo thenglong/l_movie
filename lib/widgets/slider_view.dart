@@ -99,15 +99,18 @@ class _SliderViewState extends State<SliderView> {
               borderRadius: BorderRadius.circular(12.0),
               child: Stack(
                 children: [
-                  CachedNetworkImage(
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
+                  Hero(
+                    tag: movie,
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      imageUrl:
+                          'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                      width: width,
+                      height: double.infinity,
+                      fit: BoxFit.cover,
                     ),
-                    imageUrl:
-                        'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-                    width: width,
-                    height: double.infinity,
-                    fit: BoxFit.cover,
                   ),
                   Container(
                     width: width,
