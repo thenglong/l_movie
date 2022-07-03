@@ -22,7 +22,7 @@ class CategoryView extends StatelessWidget {
     return BlocProvider(
       create: (context) {
         return MovieBloc(MovieRepositoryImpl())
-          ..add(FetchMovieWithType(MovieConstants.upcoming));
+          ..add(FetchMovieWithType(MovieType.upcoming));
       },
       child: _createCategory(context),
     );
@@ -39,7 +39,7 @@ class CategoryView extends StatelessWidget {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieConstants.upcoming));
+                  .add(FetchMovieWithType(MovieType.upcoming));
             },
           );
         } else if (state is MovieFetched) {

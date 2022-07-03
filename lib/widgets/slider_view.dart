@@ -26,7 +26,7 @@ class _SliderViewState extends State<SliderView> {
 
   @override
   void initState() {
-    _movieBloc.add(FetchMovieWithType(MovieConstants.nowPlaying));
+    _movieBloc.add(FetchMovieWithType(MovieType.nowPlaying));
     super.initState();
   }
 
@@ -89,7 +89,7 @@ class _SliderViewState extends State<SliderView> {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieConstants.nowPlaying));
+                  .add(FetchMovieWithType(MovieType.nowPlaying));
             },
           );
         } else if (state is MovieFetched) {
