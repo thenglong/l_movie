@@ -105,8 +105,7 @@ class _SliderViewState extends State<SliderView> {
               autoPlayInterval: const Duration(seconds: 5),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               pauseAutoPlayOnTouch: true,
-              viewportFraction: 0.8,
-              enlargeCenterPage: true,
+              viewportFraction: 0.92,
             ),
           );
         } else {
@@ -117,72 +116,59 @@ class _SliderViewState extends State<SliderView> {
   }
 
   Widget _createMovieSliderItem(BuildContext context, Movie movie) {
-    final width = MediaQuery.of(context).size.width;
-
     return InkWell(
       onTap: () {
         widget.actionOpenMovie(movie);
       },
-      child: Container(
-        width: width,
-        height: double.infinity,
-        padding: const EdgeInsets.only(bottom: 20.0),
-        child: Card(
-          elevation: 10.0,
-          borderOnForeground: true,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: SizedBox(
-            width: width,
-            height: double.infinity,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
-              child: Stack(
-                children: [
-                  Hero(
-                    tag: movie,
-                    child: NetworkImageWrapper(
-                      imageUrl:
-                          'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-                      width: width,
-                      height: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    width: width,
-                    height: double.infinity,
-                    padding: const EdgeInsets.only(left: 16.0, bottom: 20.0),
-                    alignment: Alignment.bottomLeft,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        stops: [0.1, 0.5, 0.7, 0.9],
-                        colors: [
-                          Color(0x00000000),
-                          Color(0x00000000),
-                          Color(0x22000000),
-                          Color(0x66000000),
-                        ],
-                      ),
-                    ),
-                    child: Text(
-                      movie.title.toUpperCase(),
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0,
-                        fontFamily: 'Muli',
-                        color: white,
-                      ),
-                    ),
-                  ),
-                ],
+      child: Card(
+        elevation: 0,
+        borderOnForeground: true,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12.0),
+          child: Stack(
+            children: [
+              Hero(
+                tag: movie,
+                child: NetworkImageWrapper(
+                  imageUrl:
+                      'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+              Container(
+                height: double.infinity,
+                padding: const EdgeInsets.only(left: 16.0, bottom: 20.0),
+                alignment: Alignment.bottomLeft,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [0.1, 0.5, 0.7, 0.9],
+                    colors: [
+                      Color(0x00000000),
+                      Color(0x00000000),
+                      Color(0x22000000),
+                      Color(0x66000000),
+                    ],
+                  ),
+                ),
+                child: Text(
+                  movie.title.toUpperCase(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    fontFamily: 'Muli',
+                    color: white,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
