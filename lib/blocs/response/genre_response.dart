@@ -6,9 +6,11 @@ class GenreResponse extends Equatable {
 
   const GenreResponse({required this.genres});
 
-  factory GenreResponse.parseFromJson(List<dynamic> result) {
+  factory GenreResponse.parseFromJson(Map<String, dynamic> result) {
     return GenreResponse(
-      genres: result.map((e) => Genre.parseFromJson(e)).toList(),
+      genres: (result['genres'] as List)
+          .map((e) => Genre.parseFromJson(e))
+          .toList(),
     );
   }
 
