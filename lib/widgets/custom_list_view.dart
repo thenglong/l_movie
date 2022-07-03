@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -11,6 +10,7 @@ import 'package:l_movie/repository/movie_repository_impl.dart';
 import 'package:l_movie/screens/photo_gallery_screen.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/error_page.dart';
+import 'package:l_movie/widgets/network_image_wrapper.dart';
 
 class CustomListView extends StatelessWidget {
   final Function(Movie) actionOpenMovie;
@@ -132,15 +132,13 @@ class CustomListView extends StatelessWidget {
               child: GestureDetector(
                 // onTap: () => openGallery(context,
                 //     allMovies.map((e) => e.posterPath).toList(), index),
-                child: CachedNetworkImage(
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
+                child: Hero(
+                  tag: movie,
+                  child: NetworkImageWrapper(
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/w500${movie.posterPath}',
+                    width: width,
                   ),
-                  imageUrl:
-                      'https://image.tmdb.org/t/p/w500${movie.posterPath}',
-                  width: width,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
                 ),
               ),
             ),

@@ -66,28 +66,20 @@ class HomeState extends State<HomeScreen>
             child: Column(
               children: [
                 SliderView(
-                  actionOpenMovie: (movie) {
-                    _openMovieDetail(movie);
-                  },
+                  actionOpenMovie: _openMovieDetail,
                 ),
                 const Divider(height: 4.0, color: Colors.transparent),
                 CategoryView(
-                  actionOpenCategory: (movie) {
-                    _openMovieDetail(movie);
-                  },
+                  actionOpenCategory: _openMovieDetail,
                 ),
                 const Divider(height: 8.0, color: Colors.transparent),
                 CustomListView(
-                  actionOpenMovie: (movie) {
-                    _openMovieDetail(movie);
-                  },
+                  actionOpenMovie: _openMovieDetail,
                   actionLoadAll: () {},
                 ),
                 const Divider(height: 8.0, color: Colors.transparent),
                 PopularView(
-                  actionOpenMovie: (movie) {
-                    _openMovieDetail(movie);
-                  },
+                  actionOpenMovie: _openMovieDetail,
                   actionLoadAll: () {},
                 ),
               ],

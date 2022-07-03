@@ -1,10 +1,10 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/favorite_icon_widget.dart';
 import 'package:l_movie/widgets/logo.dart';
 import 'package:l_movie/widgets/movie_info_view.dart';
+import 'package:l_movie/widgets/network_image_wrapper.dart';
 import 'package:l_movie/widgets/screenshot_view.dart';
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 
@@ -122,14 +122,12 @@ class MovieDetailScreen extends StatelessWidget {
       children: [
         Hero(
           tag: movie,
-          child: CachedNetworkImage(
-            placeholder: (context, url) => const Center(
-              child: CircularProgressIndicator(),
-            ),
+          child: NetworkImageWrapper(
             imageUrl: 'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
             width: double.infinity,
             height: double.infinity,
             fit: BoxFit.cover,
+            loaderSize: 28.0,
           ),
         ),
         Container(
