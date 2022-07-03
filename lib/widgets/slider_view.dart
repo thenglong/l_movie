@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_bloc.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_event.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_state.dart';
@@ -41,7 +42,47 @@ class _SliderViewState extends State<SliderView> {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
         if (state is MovieInit) {
-          return const Center(child: CircularProgressIndicator());
+          return CarouselSlider.builder(
+            itemCount: 3,
+            itemBuilder: (BuildContext context, int index, int realIndex) {
+              return Container(
+                width: MediaQuery.of(context).size.width,
+                height: double.infinity,
+                padding: const EdgeInsets.only(bottom: 20.0),
+                child: Card(
+                  elevation: 10.0,
+                  borderOnForeground: true,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: double.infinity,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.0),
+                      child: Stack(
+                        children: [
+                          SpinKitThreeBounce(
+                            color: Theme.of(context).hintColor,
+                            size: 18.0,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              );
+            },
+            options: CarouselOptions(
+              enableInfiniteScroll: true,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 5),
+              autoPlayAnimationDuration: const Duration(milliseconds: 800),
+              pauseAutoPlayOnTouch: true,
+              viewportFraction: 0.8,
+              enlargeCenterPage: true,
+            ),
+          );
         } else if (state is MovieFetchError) {
           return ErrorPage(
             message: state.message,
@@ -56,7 +97,7 @@ class _SliderViewState extends State<SliderView> {
           return CarouselSlider.builder(
             itemCount: movies.length,
             itemBuilder: (BuildContext context, int index, int realIndex) {
-              return _createSliderItem(context, movies[index]);
+              return _createMovieSliderItem(context, movies[index]);
             },
             options: CarouselOptions(
               enableInfiniteScroll: true,
@@ -75,7 +116,7 @@ class _SliderViewState extends State<SliderView> {
     );
   }
 
-  Widget _createSliderItem(BuildContext context, Movie movie) {
+  Widget _createMovieSliderItem(BuildContext context, Movie movie) {
     final width = MediaQuery.of(context).size.width;
 
     return InkWell(
