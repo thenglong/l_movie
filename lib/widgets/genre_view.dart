@@ -10,6 +10,7 @@ import 'package:l_movie/repository/genre_repository_impl.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/error_page.dart';
 import 'package:l_movie/widgets/network_image_wrapper.dart';
+import 'package:skeletons/skeletons.dart';
 
 class GenreView extends StatelessWidget {
   final Function(Genre) actionOpenGenre;
@@ -30,7 +31,46 @@ class GenreView extends StatelessWidget {
     return BlocBuilder<GenreBloc, GenreState>(
       builder: (context, state) {
         if (state is GenreInitial) {
-          return const Center(child: CircularProgressIndicator());
+          return SizedBox(
+            width: double.infinity,
+            height: 96.0,
+            child: ListView.separated(
+              itemBuilder: (BuildContext context, int index) {
+                final width = MediaQuery.of(context).size.width / 2.5;
+                return Container(
+                  width: width,
+                  height: double.infinity,
+                  padding: const EdgeInsets.only(bottom: 12.0),
+                  child: Card(
+                    elevation: 0,
+                    borderOnForeground: true,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                    ),
+                    child: SizedBox(
+                      width: width,
+                      height: double.infinity,
+                      child: SkeletonItem(
+                        child: SkeletonAvatar(
+                          style: SkeletonAvatarStyle(
+                              width: double.infinity,
+                              height: double.infinity,
+                              borderRadius: BorderRadius.circular(12.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: 10,
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (context, index) => const VerticalDivider(
+                color: Colors.transparent,
+                width: 6.0,
+              ),
+            ),
+          );
         } else if (state is GenresFetchError) {
           return ErrorPage(
             message: state.message,
@@ -49,15 +89,15 @@ class GenreView extends StatelessWidget {
     );
   }
 
-  Widget _createGenreList(BuildContext context, List<Genre> genre) {
+  Widget _createGenreList(BuildContext context, List<Genre> genres) {
     return SizedBox(
       width: double.infinity,
       height: 96.0,
       child: ListView.separated(
         itemBuilder: (BuildContext context, int index) {
-          return _createGenreItem(context, genre[index]);
+          return _createGenreItem(context, genres[index]);
         },
-        itemCount: genre.length,
+        itemCount: genres.length,
         padding: const EdgeInsets.only(left: 16.0, right: 16.0),
         scrollDirection: Axis.horizontal,
         separatorBuilder: (context, index) => const VerticalDivider(
@@ -80,7 +120,7 @@ class GenreView extends StatelessWidget {
         height: double.infinity,
         padding: const EdgeInsets.only(bottom: 12.0),
         child: Card(
-          elevation: 8.0,
+          elevation: 0,
           borderOnForeground: true,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
