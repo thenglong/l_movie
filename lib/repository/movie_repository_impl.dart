@@ -11,7 +11,7 @@ import 'package:l_movie/models/movie_video.dart';
 import 'movie_repository.dart';
 
 class MovieRepositoryImpl extends MovieRepository {
-  static const _apiKey = 'apiKey';
+  static const _apiKey = 'd61431a2fb64b6e56c6f086952e63ab6';
   final Client _client;
 
   MovieRepositoryImpl({Client? client}) : _client = client ?? Client();

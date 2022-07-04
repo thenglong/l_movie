@@ -6,7 +6,7 @@ import 'package:l_movie/models/genre.dart';
 import 'package:l_movie/repository/genre_repository.dart';
 
 class GenreRepositoryImpl extends GenreRepository {
-  static const _apiKey = 'apiKey';
+  static const _apiKey = 'd61431a2fb64b6e56c6f086952e63ab6';
   final Client _client;
 
   GenreRepositoryImpl({Client? client}) : _client = client ?? Client();
