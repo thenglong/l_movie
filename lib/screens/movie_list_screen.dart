@@ -29,11 +29,6 @@ class MovieListScreen extends StatelessWidget {
             elevation: 0.0,
             titleSpacing: 4.0,
             backgroundColor: Colors.transparent,
-            // title: Image.asset(
-            //   'assets/images/ic_netflix.png',
-            //   height: 56.0,
-            //   fit: BoxFit.fitHeight,
-            // ),
             title: const LMovieLogo(),
             centerTitle: true,
             leading: Container(
@@ -67,35 +62,30 @@ class MovieListScreen extends StatelessWidget {
           return LayoutBuilder(
             builder:
                 (BuildContext context, BoxConstraints viewportConstraints) {
-              return GridView.builder(
-                itemCount: state.movies.length, // TODO
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: MediaQuery.of(context).orientation ==
-                          Orientation.landscape
-                      ? 3
-                      : 2,
-                  crossAxisSpacing: 8,
-                  mainAxisSpacing: 8,
-                  childAspectRatio: (2 / 1),
-                ),
-                itemBuilder: (
-                  context,
-                  index,
-                ) {
-                  final movie = state.movies[index];
-                  return GestureDetector(
-                    onTap: () {
-                      // Navigator.of(context)
-                      //     .pushNamed(RouteName.GridViewCustom);
-                    },
-                    child: Card(
-                      elevation: 0,
-                      borderOnForeground: true,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(12.0),
+              return Padding(
+                padding: const EdgeInsets.all(2.0),
+                child: GridView.builder(
+                  itemCount: state.movies.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).orientation ==
+                            Orientation.landscape
+                        ? 3
+                        : 2,
+                    childAspectRatio: (16 / 9),
+                  ),
+                  itemBuilder: (
+                    context,
+                    index,
+                  ) {
+                    final movie = state.movies[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // Navigator.of(context)
+                        //     .pushNamed(RouteName.GridViewCustom);
+                      },
+                      child: Card(
+                        elevation: 0,
+                        borderOnForeground: true,
                         child: Stack(
                           children: [
                             Hero(
@@ -109,14 +99,14 @@ class MovieListScreen extends StatelessWidget {
                             ),
                             Container(
                               height: double.infinity,
-                              padding: const EdgeInsets.only(
-                                  left: 16.0, bottom: 20.0),
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, bottom: 8.0),
                               alignment: Alignment.bottomLeft,
                               decoration: const BoxDecoration(
                                 gradient: LinearGradient(
                                   begin: Alignment.topRight,
                                   end: Alignment.bottomLeft,
-                                  stops: [0.1, 0.5, 0.7, 0.9],
+                                  stops: [0.1, 0.5, 0.6, 0.9],
                                   colors: [
                                     Color(0x00000000),
                                     Color(0x00000000),
@@ -131,7 +121,7 @@ class MovieListScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20.0,
+                                  fontSize: 11.0,
                                   fontFamily: 'Muli',
                                   color: white,
                                 ),
@@ -140,9 +130,9 @@ class MovieListScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             },
           );
