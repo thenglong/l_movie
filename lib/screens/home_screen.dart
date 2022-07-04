@@ -112,7 +112,10 @@ class HomeState extends State<HomeScreen>
 
   void _openMovieList(MovieEvent movieEvent) async {
     await Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => MovieListScreen(movieEvent: movieEvent),
+      builder: (context) => MovieListScreen(
+        movieEvent: movieEvent,
+        actionOpenMovieDetail: _openMovieDetail,
+      ),
     ));
   }
 

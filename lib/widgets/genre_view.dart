@@ -37,7 +37,7 @@ class GenreView extends StatelessWidget {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieType.upcoming));
+                  .add(const FetchMovieWithType(MovieType.upcoming));
             },
           );
         } else if (state is GenresFetched) {

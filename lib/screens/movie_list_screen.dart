@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:l_movie/blocs/blocs.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_event.dart';
 import 'package:l_movie/blocs/movie_bloc/movie_state.dart';
+import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/repository/movie_repository_impl.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/favorite_icon_widget.dart';
@@ -11,8 +12,13 @@ import 'package:l_movie/widgets/network_image_wrapper.dart';
 
 class MovieListScreen extends StatelessWidget {
   final MovieEvent movieEvent;
+  final Function(Movie) actionOpenMovieDetail;
 
-  const MovieListScreen({Key? key, required this.movieEvent}) : super(key: key);
+  const MovieListScreen({
+    Key? key,
+    required this.movieEvent,
+    required this.actionOpenMovieDetail,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +86,7 @@ class MovieListScreen extends StatelessWidget {
                     final movie = state.movies[index];
                     return GestureDetector(
                       onTap: () {
-                        // Navigator.of(context)
-                        //     .pushNamed(RouteName.GridViewCustom);
+                        actionOpenMovieDetail(movie);
                       },
                       child: Card(
                         elevation: 0,

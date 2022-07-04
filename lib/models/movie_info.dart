@@ -7,7 +7,7 @@ import 'package:l_movie/models/language.dart';
 
 class MovieInfo extends Equatable {
   final bool adult;
-  final String backdropPath;
+  final String? backdropPath;
   final Collection? collection;
   final int budget;
   final List<Genre> genres;
