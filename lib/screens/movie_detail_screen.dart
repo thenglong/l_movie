@@ -61,18 +61,21 @@ class MovieDetailScreen extends StatelessWidget {
       height: width + 56.0,
       child: Stack(
         children: [
-          ShapeOfView(
-            shape: ArcShape(
-              direction: ArcDirection.Outside,
-              height: 48,
-              position: ArcPosition.Bottom,
-            ),
-            height: width,
-            elevation: 24.0,
-            child: SizedBox(
-              width: double.infinity,
+          Hero(
+            tag: movie,
+            child: ShapeOfView(
+              shape: ArcShape(
+                direction: ArcDirection.Outside,
+                height: 48,
+                position: ArcPosition.Bottom,
+              ),
               height: width,
-              child: _createHeaderImage(context),
+              elevation: 24.0,
+              child: SizedBox(
+                width: double.infinity,
+                height: width,
+                child: _createHeaderImage(context),
+              ),
             ),
           ),
           _createHeaderAction(context),
@@ -120,15 +123,12 @@ class MovieDetailScreen extends StatelessWidget {
   Widget _createHeaderImage(BuildContext context) {
     return Stack(
       children: [
-        Hero(
-          tag: movie,
-          child: NetworkImageWrapper(
-            imageUrl: 'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-            loaderSize: 28.0,
-          ),
+        NetworkImageWrapper(
+          imageUrl: 'https://image.tmdb.org/t/p/w500${movie.backdropPath}',
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+          loaderSize: 28.0,
         ),
         Container(
           width: double.infinity,
