@@ -37,7 +37,7 @@ class HomeState extends State<HomeScreen>
           child: IconButton(
             icon: const Icon(Icons.menu_rounded, color: actionBarIconColor),
             onPressed: () {
-              print("Hello World");
+              // TODO: Implement Drawer
             },
           ),
         ),
@@ -76,10 +76,7 @@ class HomeState extends State<HomeScreen>
                 const Divider(height: 16.0, color: Colors.transparent),
                 GenreView(
                   actionOpenGenre: (genre) {
-                    print(genre.name);
-                    print(genre.id);
                     _openMovieList(FetchMovieByGenres([genre.id]));
-                    // TODO
                   },
                 ),
                 const SizedBox(
@@ -87,7 +84,9 @@ class HomeState extends State<HomeScreen>
                 ),
                 CustomListView(
                   actionOpenMovie: _openMovieDetail,
-                  actionLoadAll: () {},
+                  actionLoadAll: () {
+                    // TODO:
+                  },
                 ),
                 const SizedBox(height: 8.0),
                 PopularView(

@@ -25,7 +25,7 @@ class PopularView extends StatelessWidget {
       create: (context) {
         return MovieBloc(MovieRepositoryImpl())
           ..add(
-            FetchMovieWithType(MovieType.popular),
+            const FetchMovieWithType(MovieType.popular),
           );
       },
       child: _createPopular(context),
@@ -43,7 +43,7 @@ class PopularView extends StatelessWidget {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieType.popular));
+                  .add(const FetchMovieWithType(MovieType.popular));
             },
           );
         } else if (state is MovieFetched) {
