@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:l_movie/constants/movie_constants.dart';
 import 'package:l_movie/models/movie.dart';
 
 abstract class MovieState extends Equatable {

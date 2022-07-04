@@ -1,6 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:l_movie/models/genre.dart';
 import 'package:l_movie/repository/genre_repository.dart';
 

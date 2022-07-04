@@ -64,7 +64,9 @@ class MovieListScreen extends StatelessWidget {
   Widget _createListBody(BuildContext context) {
     return BlocBuilder<MovieBloc, MovieState>(
       builder: (context, state) {
-        if (state is MovieFetched) {
+        if (state is MovieInit) {
+          return const Text("Loading...");
+        } else if (state is MovieFetched) {
           return LayoutBuilder(
             builder:
                 (BuildContext context, BoxConstraints viewportConstraints) {
@@ -142,8 +144,7 @@ class MovieListScreen extends StatelessWidget {
             },
           );
         } else {
-          print(state);
-          return Text("error");
+          return const Text("error");
         }
       },
     );
