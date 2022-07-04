@@ -6,6 +6,7 @@ import 'package:l_movie/constants/movie_constants.dart';
 import 'package:l_movie/models/movie.dart';
 import 'package:l_movie/models/movie_image.dart';
 import 'package:l_movie/models/movie_info.dart';
+import 'package:l_movie/models/movie_video.dart';
 
 import 'movie_repository.dart';
 
@@ -54,6 +55,18 @@ class MovieRepositoryImpl extends MovieRepository {
         'https://api.themoviedb.org/3/discover/movie?api_key=$_apiKey&language=en-US&sort_by=popularity.desc&include_adult=true&include_video=true&page=1&with_genres=${genresId.join(",")}'));
     if (response.statusCode == 200) {
       return MovieResponse.parserFromJson(json.decode(response.body)).movies;
+    } else {
+      throw Exception('Fail to load movie by this genre');
+    }
+  }
+
+  @override
+  Future<List<MovieVideo>> fetchMovieVideos(int videoId) async {
+    final response = await _client.get(Uri.parse(
+        'https://api.themoviedb.org/3/movie/$videoId/videos?api_key=$_apiKey&language=en-US'));
+    if (response.statusCode == 200) {
+      final results = json.decode(response.body)['results'] as List;
+      return results.map((e) => MovieVideo.fromJson(e)).toList();
     } else {
       throw Exception('Fail to load movie by this genre');
     }
