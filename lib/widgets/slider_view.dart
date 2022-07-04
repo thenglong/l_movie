@@ -26,7 +26,7 @@ class _SliderViewState extends State<SliderView> {
 
   @override
   void initState() {
-    _movieBloc.add(FetchMovieWithType(MovieType.nowPlaying));
+    _movieBloc.add(const FetchMovieWithType(MovieType.nowPlaying));
     super.initState();
   }
 
@@ -45,30 +45,22 @@ class _SliderViewState extends State<SliderView> {
           return CarouselSlider.builder(
             itemCount: 3,
             itemBuilder: (BuildContext context, int index, int realIndex) {
-              return Container(
-                width: MediaQuery.of(context).size.width,
-                height: double.infinity,
-                padding: const EdgeInsets.only(bottom: 20.0),
-                child: Card(
-                  elevation: 10.0,
-                  borderOnForeground: true,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: double.infinity,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12.0),
-                      child: Stack(
-                        children: [
-                          SpinKitThreeBounce(
-                            color: Theme.of(context).hintColor,
-                            size: 18.0,
-                          ),
-                        ],
+              return Card(
+                color: Colors.grey[300],
+                elevation: 1,
+                borderOnForeground: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12.0),
+                  child: Stack(
+                    children: [
+                      SpinKitThreeBounce(
+                        color: Theme.of(context).hintColor,
+                        size: 18.0,
                       ),
-                    ),
+                    ],
                   ),
                 ),
               );
@@ -79,8 +71,7 @@ class _SliderViewState extends State<SliderView> {
               autoPlayInterval: const Duration(seconds: 5),
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               pauseAutoPlayOnTouch: true,
-              viewportFraction: 0.8,
-              enlargeCenterPage: true,
+              viewportFraction: 0.92,
             ),
           );
         } else if (state is MovieFetchError) {
@@ -89,7 +80,7 @@ class _SliderViewState extends State<SliderView> {
             retry: () {
               context
                   .watch<MovieBloc>()
-                  .add(FetchMovieWithType(MovieType.nowPlaying));
+                  .add(const FetchMovieWithType(MovieType.nowPlaying));
             },
           );
         } else if (state is MovieFetched) {
