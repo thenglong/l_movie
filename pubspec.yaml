@@ -47,6 +47,8 @@ dependencies:
   photo_view: ^0.14.0
   flutter_spinkit: ^5.1.0
   skeletons: ^0.0.3
+  youtube_player_flutter: ^8.1.0
+  device_info_plus: ^4.0.0
 
 dev_dependencies:
   flutter_test:

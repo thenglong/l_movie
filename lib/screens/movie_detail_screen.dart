@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:l_movie/models/movie.dart';
+import 'package:l_movie/screens/movie_player_screen.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/favorite_icon_widget.dart';
 import 'package:l_movie/widgets/logo.dart';
@@ -195,7 +196,9 @@ class MovieDetailScreen extends StatelessWidget {
               child: FittedBox(
                 child: FloatingActionButton(
                   elevation: 10.0,
-                  onPressed: () {},
+                  onPressed: () {
+                    _openMoviePlayer(context, movie);
+                  },
                   backgroundColor: white,
                   child: const Icon(
                     Icons.play_arrow,
@@ -208,6 +211,14 @@ class MovieDetailScreen extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  void _openMoviePlayer(BuildContext context, Movie movie) async {
+    await Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) {
+        return MoviePlayerScreen(movie: movie);
+      }),
     );
   }
 }
