@@ -57,7 +57,12 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(context.loc.login),
+          title: Text(
+            context.loc.login,
+            style: TextStyle(
+              color: Colors.red,
+            ),
+          ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

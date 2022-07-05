@@ -39,6 +39,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Movie App",
       theme: defaultTheme,
+      locale: Locale("km"),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       // home: const HomeScreen(),
