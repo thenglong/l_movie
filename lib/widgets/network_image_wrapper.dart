@@ -7,24 +7,26 @@ class NetworkImageWrapper extends StatelessWidget {
   final double height;
   final String imageUrl;
   final BoxFit fit;
-  final double loaderSize;
+  final double placeholderSpinnerSize;
+  final Color? placeholderSpinnerColor;
 
-  const NetworkImageWrapper(
-      {Key? key,
-      this.width = double.infinity,
-      this.fit = BoxFit.cover,
-      this.height = double.infinity,
-      this.loaderSize = 18.0,
-      required this.imageUrl})
-      : super(key: key);
+  const NetworkImageWrapper({
+    Key? key,
+    this.width = double.infinity,
+    this.fit = BoxFit.cover,
+    this.height = double.infinity,
+    this.placeholderSpinnerSize = 18.0,
+    this.placeholderSpinnerColor,
+    required this.imageUrl,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       placeholder: (context, url) => Center(
         child: SpinKitThreeBounce(
-          color: Theme.of(context).hintColor,
-          size: loaderSize,
+          color: placeholderSpinnerColor ?? Theme.of(context).hintColor,
+          size: placeholderSpinnerSize,
         ),
       ),
       imageUrl: imageUrl,

@@ -127,7 +127,7 @@ class MovieDetailScreen extends StatelessWidget {
           width: double.infinity,
           height: double.infinity,
           fit: BoxFit.cover,
-          loaderSize: 28.0,
+          placeholderSpinnerSize: 28.0,
         ),
         Container(
           width: double.infinity,

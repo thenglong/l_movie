@@ -128,13 +128,16 @@ class ScreenshotView extends StatelessWidget {
           child: SizedBox(
             width: width,
             height: double.infinity,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8.0),
-              child: NetworkImageWrapper(
-                imageUrl: 'https://image.tmdb.org/t/p/w500${img.imagePath}',
-                width: width,
-                height: double.infinity,
-                fit: BoxFit.cover,
+            child: Hero(
+              tag: img.imagePath,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: NetworkImageWrapper(
+                  imageUrl: 'https://image.tmdb.org/t/p/w500${img.imagePath}',
+                  width: width,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

@@ -4,9 +4,16 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
 class PhotoGalleryScreen extends StatefulWidget {
+  final BoxDecoration? backgroundDecoration;
+  final dynamic minScale;
+  final dynamic maxScale;
+  final int initialIndex;
+  final PageController pageController;
+  final List<String> images;
+  final Axis scrollDirection;
+
   PhotoGalleryScreen({
     Key? key,
-    this.loadingBuilder,
     this.backgroundDecoration,
     this.minScale,
     this.maxScale,
@@ -15,15 +22,6 @@ class PhotoGalleryScreen extends StatefulWidget {
     this.scrollDirection = Axis.horizontal,
   })  : pageController = PageController(initialPage: initialIndex),
         super(key: key);
-
-  final LoadingBuilder? loadingBuilder;
-  final BoxDecoration? backgroundDecoration;
-  final dynamic minScale;
-  final dynamic maxScale;
-  final int initialIndex;
-  final PageController pageController;
-  final List<String> images;
-  final Axis scrollDirection;
 
   @override
   State<StatefulWidget> createState() {
@@ -55,7 +53,6 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
               scrollPhysics: const BouncingScrollPhysics(),
               builder: _buildItem,
               itemCount: widget.images.length,
-              loadingBuilder: widget.loadingBuilder,
               backgroundDecoration: widget.backgroundDecoration,
               pageController: widget.pageController,
               onPageChanged: onPageChanged,
@@ -71,7 +68,8 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
                   decoration: null,
                 ),
               ),
-            )
+            ),
+            _createAppbar(context),
           ],
         ),
       ),
@@ -80,16 +78,48 @@ class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     return PhotoViewGalleryPageOptions.customChild(
-      child: NetworkImageWrapper(
-        imageUrl: 'https://image.tmdb.org/t/p/w500${widget.images[index]}',
-        width: double.infinity,
-        height: double.infinity,
-        fit: BoxFit.contain,
+      child: GestureDetector(
+        onVerticalDragEnd: (_) {
+          Navigator.of(context).pop();
+        },
+        child: NetworkImageWrapper(
+          imageUrl: 'https://image.tmdb.org/t/p/w500${widget.images[index]}',
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.contain,
+          placeholderSpinnerColor: Theme.of(context).primaryColorLight,
+        ),
       ),
       initialScale: PhotoViewComputedScale.contained,
       minScale: PhotoViewComputedScale.contained,
       maxScale: PhotoViewComputedScale.covered * 4.1,
-      heroAttributes: PhotoViewHeroAttributes(tag: widget.images[index]),
+      heroAttributes: PhotoViewHeroAttributes(
+        tag: widget.images[index],
+      ),
+    );
+  }
+
+  Widget _createAppbar(BuildContext context) {
+    return Positioned(
+      top: 0.0,
+      left: 0.0,
+      right: 0.0,
+      child: AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        leading: Container(
+          padding: const EdgeInsets.only(left: 16.0),
+          child: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Theme.of(context).primaryColorLight,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ),
+      ),
     );
   }
 }
