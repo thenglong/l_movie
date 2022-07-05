@@ -1,28 +1,24 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_bloc.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_event.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_state.dart';
 import 'package:l_movie/blocs/main_bloc_observer.dart';
-import 'package:l_movie/providers/firebase_auth_provider.dart';
 import 'package:l_movie/screens/forgot_password_screen.dart';
 import 'package:l_movie/screens/home_screen.dart';
 import 'package:l_movie/screens/loading_screen.dart';
 import 'package:l_movie/screens/login_screen.dart';
 import 'package:l_movie/screens/register_screen.dart';
 import 'package:l_movie/screens/verify_email_screen.dart';
+import 'package:l_movie/services/firebase_auth_service.dart';
 import 'package:l_movie/theme/theme.dart';
 
-import 'firebase_options.dart';
-
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   BlocOverrides.runZoned(
     () {
       runApp(const MainApp());
@@ -39,13 +35,12 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Movie App",
       theme: defaultTheme,
-      locale: Locale("km"),
+      locale: Locale(Intl.systemLocale),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      // home: const HomeScreen(),
       home: BlocProvider<AuthBloc>(
         create: (context) => AuthBloc(
-          FirebaseAuthProvider(),
+          FirebaseAuthService(),
         ),
         child: const InitialScreen(),
       ),
@@ -72,7 +67,6 @@ class InitialScreen extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is AuthStateLoggedIn) {
-          // return const NotesView();
           return const HomeScreen();
         } else if (state is AuthStateNeedsVerification) {
           return const VerifyEmailScreen();

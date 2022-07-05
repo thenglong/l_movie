@@ -4,9 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:l_movie/exceptions/auth_exceptions.dart';
 import 'package:l_movie/firebase_options.dart';
 import 'package:l_movie/models/auth_user.dart';
-import 'package:l_movie/providers/auth_provider.dart';
+import 'package:l_movie/services/auth_service.dart';
 
-class FirebaseAuthProvider implements AuthProvider {
+class FirebaseAuthService implements AuthService {
   @override
   Future<void> initialize() async {
     await Firebase.initializeApp(

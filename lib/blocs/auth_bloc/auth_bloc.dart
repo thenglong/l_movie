@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_event.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_state.dart';
-import 'package:l_movie/providers/auth_provider.dart';
+import 'package:l_movie/services/auth_service.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(AuthProvider provider)
+  AuthBloc(AuthService provider)
       : super(const AuthStateUninitialized(isLoading: true)) {
     on<AuthEventShouldRegister>((event, emit) {
       emit(const AuthStateRegistering(

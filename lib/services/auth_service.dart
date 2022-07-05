@@ -1,6 +1,6 @@
 import 'package:l_movie/models/auth_user.dart';
 
-abstract class AuthProvider {
+abstract class AuthService {
   Future<void> initialize();
   AuthUser? get currentUser;
   Future<AuthUser> logIn({
