@@ -3,8 +3,8 @@ import 'package:l_movie/widgets/network_image_wrapper.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class GalleryPhotoViewWrapper extends StatefulWidget {
-  GalleryPhotoViewWrapper({
+class PhotoGalleryScreen extends StatefulWidget {
+  PhotoGalleryScreen({
     Key? key,
     this.loadingBuilder,
     this.backgroundDecoration,
@@ -27,11 +27,11 @@ class GalleryPhotoViewWrapper extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _GalleryPhotoViewWrapperState();
+    return _PhotoGalleryScreenState();
   }
 }
 
-class _GalleryPhotoViewWrapperState extends State<GalleryPhotoViewWrapper> {
+class _PhotoGalleryScreenState extends State<PhotoGalleryScreen> {
   late int currentIndex = widget.initialIndex;
 
   void onPageChanged(int index) {

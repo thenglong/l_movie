@@ -9,21 +9,18 @@ import 'package:l_movie/blocs/movie_image_bloc/movie_image_state.dart';
 import 'package:l_movie/constants/movie_constants.dart';
 import 'package:l_movie/models/image.dart';
 import 'package:l_movie/repository/movie_repository_impl.dart';
+import 'package:l_movie/screens/photo_gallery_screen.dart';
 import 'package:l_movie/theme/colors.dart';
 import 'package:l_movie/widgets/error_page.dart';
 import 'package:l_movie/widgets/network_image_wrapper.dart';
 
 class ScreenshotView extends StatelessWidget {
   final int movieId;
-  final Function(Img) actionOpenImage;
-  final void actionLoadAll;
 
-  const ScreenshotView(
-      {Key? key,
-      required this.movieId,
-      required this.actionOpenImage,
-      required this.actionLoadAll})
-      : super(key: key);
+  const ScreenshotView({
+    Key? key,
+    required this.movieId,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +60,7 @@ class ScreenshotView extends StatelessWidget {
 
   Widget _createScreenshotView(BuildContext context, List<Img> backdrops) {
     final contentHeight = 2.0 * (MediaQuery.of(context).size.width / 2.2) / 3.0;
+    final allImageUrl = backdrops.map((e) => e.imagePath).toList();
     return Column(
       children: [
         Container(
@@ -83,12 +81,6 @@ class ScreenshotView extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                icon: const Icon(Icons.arrow_forward, color: groupTitleColor),
-                onPressed: () {
-                  return actionLoadAll;
-                },
-              )
             ],
           ),
         ),
@@ -96,7 +88,12 @@ class ScreenshotView extends StatelessWidget {
           height: contentHeight,
           child: ListView.separated(
             itemBuilder: (BuildContext context, int index) {
-              return _createScreenshotItem(context, backdrops[index]);
+              return _createScreenshotItem(
+                context,
+                backdrops[index],
+                allImageUrl,
+                index,
+              );
             },
             padding: const EdgeInsets.only(left: 16.0, right: 16.0),
             scrollDirection: Axis.horizontal,
@@ -111,11 +108,12 @@ class ScreenshotView extends StatelessWidget {
     );
   }
 
-  Widget _createScreenshotItem(BuildContext context, Img img) {
+  Widget _createScreenshotItem(
+      BuildContext context, Img img, List<String> allImagesUrl, int index) {
     final width = MediaQuery.of(context).size.width / 2.4;
     return InkWell(
       onTap: () {
-        actionOpenImage(img);
+        _openScreenPhotoGallery(context, allImagesUrl, index);
       },
       child: Container(
         width: width,
@@ -140,6 +138,23 @@ class ScreenshotView extends StatelessWidget {
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  void _openScreenPhotoGallery(
+      BuildContext context, List<String> images, int index) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PhotoGalleryScreen(
+          images: images,
+          backgroundDecoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          initialIndex: index,
+          scrollDirection: Axis.horizontal,
         ),
       ),
     );

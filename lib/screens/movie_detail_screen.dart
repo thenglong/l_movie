@@ -40,8 +40,6 @@ class MovieDetailScreen extends StatelessWidget {
                     const Divider(height: 8.0, color: Colors.transparent),
                     ScreenshotView(
                       movieId: movie.id,
-                      actionOpenImage: (img) {},
-                      actionLoadAll: () {},
                     ),
                   ],
                 ),

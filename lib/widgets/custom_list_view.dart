@@ -152,7 +152,7 @@ class CustomListView extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GalleryPhotoViewWrapper(
+        builder: (context) => PhotoGalleryScreen(
           images: images,
           backgroundDecoration: const BoxDecoration(
             color: Colors.black,
