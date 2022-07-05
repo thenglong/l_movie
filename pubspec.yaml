@@ -50,6 +50,8 @@ dependencies:
   youtube_player_flutter: ^8.1.0
   device_info_plus: ^4.0.0
   flutter_dotenv: ^5.0.2
+  firebase_core: ^1.19.1
+  firebase_auth: ^3.4.1
 
 dev_dependencies:
   flutter_test:
@@ -68,3 +70,5 @@ flutter:
         - asset: assets/fonts/Muli-Bold.ttf
         - asset: assets/fonts/Muli-SemiBold.ttf
         - asset: assets/fonts/Muli-Regular.ttf
+flutter_intl:
+  enabled: true
