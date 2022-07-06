@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_bloc.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_event.dart';
 import 'package:l_movie/blocs/auth_bloc/auth_state.dart';
-import 'package:l_movie/blocs/main_bloc_observer.dart';
 import 'package:l_movie/screens/forgot_password_screen.dart';
 import 'package:l_movie/screens/home_screen.dart';
 import 'package:l_movie/screens/loading_screen.dart';
@@ -15,6 +14,8 @@ import 'package:l_movie/screens/register_screen.dart';
 import 'package:l_movie/screens/verify_email_screen.dart';
 import 'package:l_movie/services/firebase_auth_service.dart';
 import 'package:l_movie/theme/theme.dart';
+
+import 'blocs/main_bloc_observer.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
